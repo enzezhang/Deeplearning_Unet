@@ -33,6 +33,8 @@ import rasterio
 def read_patch(patch_obj,crop_height,crop_width):
     """
     Read all the pixel of the patch
+    we add zeros before training to train the edge.
+    make sure that all the patches are in the same size.
     :param patch_obj: the instance of patchclass 
     :return: The array of pixel value
     """
@@ -58,11 +60,14 @@ def read_patch(patch_obj,crop_height,crop_width):
             return data
 def read_patch2(patch_obj):
     """
+    same with read_patch but no size contral 
+    this is for model test output
     Read all the pixel of the patch
     :param patch_obj: the instance of patchclass 
     :return: The array of pixel value
     """
     # window structure; expecting ((row_start, row_stop), (col_start, col_stop))
+    #
     boundary = patch_obj.boundary #(xoff,yoff ,xsize, ysize)
     window = ((boundary[1],boundary[1]+boundary[3])  ,  (boundary[0],boundary[0]+boundary[2]))
     #print(window)
